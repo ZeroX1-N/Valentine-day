@@ -6,7 +6,9 @@ function selectOption(option) {
     if (option === 'Ah') {
         // Flash rainbow colors
         flashRainbowColors(function() {
-            questionElement.innerText = 'Do u wanna be my valentine ?'; // Keep the initial question as is
+            // After flash, hide the question and display cat-heart gif
+            questionElement.style.display = 'none'; // Hide the question
+            displayCatHeart();
         });
     } else if (option === 'La') {
         // Change text on the "No" button to "Mt2ekd ?"
@@ -16,14 +18,11 @@ function selectOption(option) {
         var currentFontSize = window.getComputedStyle(yesButton).getPropertyValue('font-size');
         var newSize = parseFloat(currentFontSize) * 2; // Increase font size by * 2px
         yesButton.style.fontSize = newSize + 'px';
-    } else if (option === 'Mt2ekd') {
+    } else {
         // Final confirmation question
         setTimeout(function() {
             questionElement.innerText = 'Sla7t, 3titi ljaweb!!'; // Final confirmation message
         }, 1000);
-    } else {
-        // If neither "Yes" nor "No" was clicked, show an alert message
-        alert('Invalid option!');
     }
 }
 
@@ -44,27 +43,27 @@ function flashRainbowColors(callback) {
     }, 2000); // Flash colors for 2 seconds
 }
 
+// Function to display the cat-heart.gif after "Ah"
+function displayCatHeart() {
+    document.getElementById('image-container').innerHTML = ''; // Clear existing images
+    var imageContainer = document.getElementById('image-container');
+    var catHeartImage = new Image();
+    catHeartImage.src = 'cat-heart.gif'; // Make sure path to the image is correct
+    catHeartImage.alt = 'Cat Heart';
+    catHeartImage.onload = function() {
+        imageContainer.appendChild(catHeartImage); // Display image
+        document.getElementById('options').style.display = 'none'; // Hide the buttons after the gif
+    };
+}
+
 // Display the cat.gif initially
 function displayCat() {
     var imageContainer = document.getElementById('image-container');
     var catImage = new Image();
-    catImage.src = 'cat.gif';
+    catImage.src = 'cat.gif'; // Make sure path to the image is correct
     catImage.alt = 'Cat';
     catImage.onload = function() {
         imageContainer.appendChild(catImage);
-    };
-}
-
-// Function to display the cat-heart.gif after "Ah"
-function displayCatHeart() {
-    document.getElementById('image-container').innerHTML = '';
-    var imageContainer = document.getElementById('image-container');
-    var catHeartImage = new Image();
-    catHeartImage.src = 'cat-heart.gif';
-    catHeartImage.alt = 'Cat Heart';
-    catHeartImage.onload = function() {
-        imageContainer.appendChild(catHeartImage);
-        document.getElementById('options').style.display = 'none';
     };
 }
 
